@@ -12,9 +12,10 @@ on:
       source_branch:
         description: "Select the source branch"
         required: false
-        default: "openwrt-main"
+        default: "openwrt-24.10"
         type: choice
         options:
+          - openwrt-24.10
           - openwrt-main
           - lede-master
           - immortalwrt-master
@@ -133,7 +134,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "5.15.1_6.1.1"
+        default: "6.6.73"
         type: choice
         options:
           - 5.4.1_5.10.1
@@ -142,6 +143,7 @@ on:
           - 5.10.1
           - 5.15.1
           - 6.1.1
+          - 6.6.73
       auto_kernel:
         description: "Auto use the latest kernel"
         required: false
@@ -175,11 +177,11 @@ on:
       builder_name:
         description: "Set OpenWrt builder signature."
         required: false
-        default: "angel"
+        default: "steven"
         type: choice
         options:
           - angel
-          - yourname
+          - steven
 
 env:
   FEEDS_CONF: config/${{ inputs.source_branch }}/feeds.conf.default
@@ -223,7 +225,11 @@ jobs:
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
           # Set up compilation source code
-          if [[ "${{ inputs.source_branch }}" == *"openwrt"* ]]; then
+          if [[ "${{ inputs.source_branch }}" == *"openwrt-24"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+              REPO_BRANCH="openwrt-24.10"
+              TAGS_NAME="release"
+          elif [[ "${{ inputs.source_branch }}" == *"openwrt"* ]]; then
               REPO_URL="https://github.com/openwrt/openwrt"
               REPO_BRANCH="main"
               TAGS_NAME="official"
