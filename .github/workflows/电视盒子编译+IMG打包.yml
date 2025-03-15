@@ -227,23 +227,23 @@ jobs:
         run: |
           # Set up compilation source code
           if [[ "${{ inputs.source_branch }}" == *"openwrt-24"* ]]; then
-              REPO_URL="https://github.com/openwrt/openwrt"
+              REPO_URL="https://bgithub.xyz/openwrt/openwrt"
               REPO_BRANCH="openwrt-24.10"
               TAGS_NAME="release"
           elif [[ "${{ inputs.source_branch }}" == *"openwrt"* ]]; then
-              REPO_URL="https://github.com/openwrt/openwrt"
+              REPO_URL="https://bgithub.xyz/openwrt/openwrt"
               REPO_BRANCH="main"
               TAGS_NAME="official"
           elif [[ "${{ inputs.source_branch }}" == *"lede"* ]]; then
-              REPO_URL="https://github.com/coolsnowwolf/lede"
+              REPO_URL="https://bgithub.xyz/coolsnowwolf/lede"
               REPO_BRANCH="master"
               TAGS_NAME="lede"
           elif [[ "${{ inputs.source_branch }}" == *"immortalwrt"* ]]; then
-              REPO_URL="https://github.com/immortalwrt/immortalwrt"
+              REPO_URL="https://bgithub.xyz/immortalwrt/immortalwrt"
               REPO_BRANCH="master"
               TAGS_NAME="immortalwrt"
           elif [[ "${{ inputs.source_branch }}" == *"Lienol"* ]]; then
-              REPO_URL="https://github.com/Lienol/openwrt"
+              REPO_URL="https://bgithub.xyz/Lienol/openwrt"
               REPO_BRANCH="22.03"
               TAGS_NAME="Lienol"
           else
@@ -340,7 +340,8 @@ jobs:
           kernel_repo: ${{ inputs.kernel_repo }}
           kernel_usage: ${{ inputs.kernel_usage }}
           builder_name: ${{ inputs.builder_name }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload the packaged OpenWrt
         uses: ncipollo/release-action@main
